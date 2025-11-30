@@ -9,7 +9,7 @@ export default function Login() {
     e.preventDefault();
     console.log({ email, password, remember });
   };
-
+    
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
       <div className="w-[400px] bg-white shadow-lg rounded-2xl p-8">
