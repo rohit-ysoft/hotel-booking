@@ -1,11 +1,39 @@
-import React from 'react'
+import { Routes, Route } from "react-router-dom";
 
-function AppRouter() {
+import PrivateRouter from "./PrivateRoute";
+import PublicRouter from "./PublicRoute";
+
+// Pages
+import Login from "../pages/Auth/Login";
+import Dashboard from "../pages/DashBoard/Home";
+
+const AppRouter = () => {
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <Routes>
+      {/* Public */}
+      <Route
+        path="/login"
+        element={
+          <PublicRouter>
+            <Login />
+          </PublicRouter>
+        }
+      />
 
-export default AppRouter
+      {/* Public open route */}
+      <Route path="/" element={<Login />} />
+
+      {/* Private */}
+      <Route
+        path="/dashboard"
+        element={
+          <PrivateRouter>
+            <Dashboard />
+          </PrivateRouter>
+        }
+      />
+    </Routes>
+  );
+};
+
+export default AppRouter;
