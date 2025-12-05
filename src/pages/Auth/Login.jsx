@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Form from "../../components/reusable/form";
+import Form from "../../components/reusable/layout/Form";
 import { loginUser } from "../../api/authApi"; // <-- update path based on your project
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";

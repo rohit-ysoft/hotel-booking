@@ -1,5 +1,5 @@
 import React from "react";
-import Form from "../../components/reusable/form";
+import Form from "../../components/reusable/layout/Form";
 import { createUser } from "../../api/authApi"; // update path if needed
 
 export default function Register() {
