@@ -10,7 +10,7 @@ import Dashboard from "../pages/DashBoard/Home";
 
 const AppRouter = () => {
   return (
-    <Routes>
+    <Routes>  
       {/* Public - Login */}
       <Route
         path="/login"
