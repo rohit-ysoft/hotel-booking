@@ -5,12 +5,13 @@ import PublicRouter from "./PublicRoute";
 
 // Pages
 import Login from "../pages/Auth/Login";
+import Register from "../pages/Auth/Register";
 import Dashboard from "../pages/DashBoard/Home";
 
 const AppRouter = () => {
   return (
     <Routes>
-      {/* Public */}
+      {/* Public - Login */}
       <Route
         path="/login"
         element={
@@ -23,15 +24,12 @@ const AppRouter = () => {
       {/* Public open route */}
       <Route path="/" element={<Login />} />
 
-      {/* Private */}
-      <Route
-        path="/dashboard"
-        element={
-          <PrivateRouter>
-            <Dashboard />
-          </PrivateRouter>
-        }
-      />
+      {/* Public - Register */}
+      <Route path="/register"element={<PublicRouter> <Register /> </PublicRouter> } />
+
+
+      {/* Private - Dashboard */}
+      <Route path="/dashboard" element={ <PrivateRouter> <Dashboard /> </PrivateRouter> } />
     </Routes>
   );
 };

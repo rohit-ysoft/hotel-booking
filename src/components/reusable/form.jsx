@@ -3,10 +3,12 @@ import React from "react";
 const Form = ({ fields = [], initialValues = {}, onSubmit }) => {
   const [formData, setFormData] = React.useState(initialValues);
 
-  const handleChange = (e) => {
+  const handleChange = (e, field) => {
+    const value = field.type === "checkbox" ? e.target.checked : e.target.value;
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [field.name]: value,
     });
   };
 
@@ -17,27 +19,43 @@ const Form = ({ fields = [], initialValues = {}, onSubmit }) => {
 
   return (
     <form onSubmit={handleFormSubmit} className="space-y-3">
-
       {fields.map((field, index) => (
         <div key={index}>
           <label className="block font-semibold mb-1">{field.label}</label>
 
-          <input
-            type={field.type || "text"}
-            name={field.name}
-            placeholder={field.placeholder}
-            value={formData[field.name] || ""}
-            onChange={handleChange}
-            className="border px-3 py-2 rounded w-full"
-          />
+          {field.type === "checkbox" ? (
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                name={field.name}
+                checked={formData[field.name] || false}
+                onChange={(e) => handleChange(e, field)}
+                className="h-4 w-4"
+              />
+              <span>{field.placeholder}</span>
+            </div>
+          ) : (
+            <input
+              type={field.type}
+              name={field.name}
+              value={
+                field.displayValue !== undefined
+                  ? field.displayValue                      // ⭐ Display value
+                  : formData[field.name] || ""              // Normal value from form
+              }
+              onChange={(e) => handleChange(e, field)}
+              className="border px-3 py-2 rounded w-full"
+            />
+
+          )}
         </div>
       ))}
 
       <button
         type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded"
+        className="bg-purple-700 text-white px-4 py-2 rounded-lg w-full hover:bg-purple-800 transition"
       >
-        Submit
+        Sign In
       </button>
     </form>
   );
