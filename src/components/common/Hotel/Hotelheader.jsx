@@ -1,10 +1,13 @@
-import React from 'react'
-import Header from '../../reusable/layout/Header'
+import React from 'react';
+import Header from '../../reusable/layout/Header';
+import { useNavigate } from "react-router-dom";
 
 function Dashboardheader() {
+  const navigate = useNavigate();
+
   return (
     <div>
-       <Header
+      <Header
         logo="src/assets/images/logo.svg"
         title="Hotels.com"
         mainMenu={[
@@ -14,16 +17,22 @@ function Dashboardheader() {
           { label: "List your property", href: "#" },
           { label: "Support", href: "#" },
           { label: "Trips", href: "#" },
-          { label: "Sign in", icon: "💬", href: "#" },
+
+          // 🔥 UPDATED: Sign Out → Navigate
+          { 
+            label: "Sign out", 
+            icon: "💬", 
+            onClick: () => navigate("/home/logout") 
+          },
         ]}
         appButton={true}
         currency="INR"
         flag="https://flagcdn.com/w20/in.png"
       />
 
-      {/* your pages here */}
+      {/* your dashboard pages here */}
     </div>
-  )
+  );
 }
 
-export default Dashboardheader
+export default Dashboardheader;

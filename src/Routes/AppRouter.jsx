@@ -1,41 +1,97 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import PrivateRouter from "./PrivateRoute";
 import PublicRouter from "./PublicRoute";
-// Pages
-import Login from "../pages/Auth/Login";
-import Register from "../pages/Auth/Register";
-// Components
 
+import Login from "../components/common/Auth/Login";
+import Register from "../components/common/Auth/Register";
 import Home from "../pages/DashBoard/Home";
 import HotelDashboard from "../pages/DashBoard/HotelDashboard";
 import Logout from "../components/common/Auth/Logout";
+import AdminDashboard from "../pages/Admin/adminDashboard";
+import Hotel from "../components/Admin/Hotels/Hotel";
+import Admin from "../components/Admin/dashboard/Admin";
+import HotelRegistration from "../components/Admin/Hotels/HotelRegistration";
+import HotelDetails from "../components/Admin/Hotels/HotelDetails";
+import HotelFacilityRegistration from "../components/Admin/Hotels/Facility/HotelFacilityRegistration";
+import HotelFacilityList from "../components/Admin/Hotels/Facility/HotelFacilityList";
 
 const AppRouter = () => {
   return (
     <Routes>
-      {/* Public - Login */}
+
+      {/* Public Home */}
+      <Route path="/" element={<Home />} />
+      <Route path="/home" element={<Home />} />
+
+      {/* Private Hotel Dashboard */}
       <Route
-        path="/login"
+        path="/hoteldashboard"
         element={
-          <PublicRouter>
-            <Home />
-          </PublicRouter>
+          <PrivateRouter>
+            <HotelDashboard />
+          </PrivateRouter>
         }
       />
 
-      {/* Public open route */}
-      <Route path="/" element={<Login />} />
+      {/* ---------- ADMIN DASHBOARD NESTED ROUTES ---------- */}
+      <Route
+        path="/admindashboard"
+        element={
+          <PrivateRouter>
+            <AdminDashboard />
+          </PrivateRouter>
+        }
+      >
+        {/* Default admin page */}
+        <Route index element={<Admin />} />
 
-      {/* Public - Register */}
-      <Route path="/register" element={<PublicRouter> <Register /> </PublicRouter>} />
+        {/* Child routes */}
+        <Route path="hotel" element={<Hotel />} />
+        <Route path="registration" element={<HotelRegistration />} />
+
+        {/* Hotel Details + Nested Routes */}
+        <Route
+          path="hoteldetails/:id"
+          element={
+            <PrivateRouter>
+              <HotelDetails />
+            </PrivateRouter>
+          }
+        >
+
+          {/* ----------- Nested Inside Hotel Details ----------- */}
+          {/* <Route
+            path="/admindashboard/hotel-facilities/:hotelId"
+            element={<HotelFacilityLayout />}   // parent layout (optional)
+          > */}
+            <Route index element={<HotelFacilityList />} />   {/* loads initially */}
+          
 
 
-      {/* Private - Dashboard */}
-      <Route path="/dashboard" element={<PrivateRouter> <HotelDashboard /> </PrivateRouter>} />
+          <Route
+            path="add-facility/:hotelId"
+            element={<HotelFacilityRegistration />}
+          />
 
-      <Route path="/logout" element={ <PrivateRouter> <Logout /> </PrivateRouter> }/>
+        </Route>
 
+      </Route>
+
+      {/* -------------------------------------------------- */}
+
+      {/* Logout */}
+      <Route
+        path="/home/logout"
+        element={
+          <PrivateRouter>
+            <Logout />
+          </PrivateRouter>
+        }
+      />
+
+      {/* Fallback */}
+      <Route path="*" element={<Navigate to="/home" replace />} />
     </Routes>
   );
 };

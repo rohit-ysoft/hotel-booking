@@ -48,15 +48,27 @@ const Header = ({
 
           {/* Right Menus */}
           {rightMenu.map((item, i) => (
-            <a
-              key={i}
-              href={item.href}
-              className="hover:text-gray-300 flex items-center gap-2"
-            >
-              {item.icon && <span>{item.icon}</span>}
-              {item.label}
-            </a>
+            item.onClick ? (
+              <button
+                key={i}
+                onClick={item.onClick}
+                className="hover:text-gray-300 flex items-center gap-2"
+              >
+                {item.icon && <span>{item.icon}</span>}
+                {item.label}
+              </button>
+            ) : (
+              <a
+                key={i}
+                href={item.href}
+                className="hover:text-gray-300 flex items-center gap-2"
+              >
+                {item.icon && <span>{item.icon}</span>}
+                {item.label}
+              </a>
+            )
           ))}
+
         </nav>
 
         {/* Mobile Menu Toggle */}

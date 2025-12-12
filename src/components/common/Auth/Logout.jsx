@@ -7,17 +7,17 @@ const Logout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Step 1: Clear login state
+    // 1. Clear login state
     setIsAuthenticated(false);
 
-    // Step 2: Remove token/storage if used
+    // 2. Remove token if stored
     localStorage.removeItem("token");
 
-    // Step 3: redirect to login page
-    navigate("/login", { replace: true });
-  }, [setIsAuthenticated, navigate]);
+    // 3. Redirect to Home page
+    navigate("/home", { replace: true });
+  }, []);
 
-  return null; // or return <p>Logging out...</p>;
+  return null; 
 };
 
 export default Logout;
