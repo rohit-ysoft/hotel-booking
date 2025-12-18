@@ -1,13 +1,22 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useSelector } from "react-redux";
 
 const PrivateRouter = ({ children }) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, token } = useSelector(
+    (state) => state.auth
+  );
+
   const location = useLocation();
 
-  if (!isAuthenticated) {
-    // Save the last attempted URL so after login we redirect back
-    return <Navigate to="/home" replace state={{ from: location }} />;
+  // If not logged in or token missing
+  if (!isAuthenticated || !token) {
+    return (
+      <Navigate
+        to="/home"                // redirect to login page
+        replace
+        state={{ from: location }} // save previous route
+      />
+    );
   }
 
   return children;
