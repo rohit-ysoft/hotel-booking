@@ -1,5 +1,5 @@
 import axios from "axios"
-import config from "../../api/config";
+import config from "../../api/Config";
 
 
 export const getAllHotels = async () =>{

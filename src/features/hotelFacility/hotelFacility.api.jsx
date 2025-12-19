@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react'
-import config from '../../api/config';
+import config from '../../api/Config';
 
 export const createHotelFacility = async (facilityData) => {
 
